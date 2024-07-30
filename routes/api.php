@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\FansController;
 use App\Http\Controllers\Api\KlubController;
 use App\Http\Controllers\Api\LigaController;
+use App\Http\Controllers\Api\PemainController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -28,3 +30,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('liga', LigaController::class)->except(['edit', 'create']);
 Route::resource('klub', KlubController::class)->except(['edit', 'create']);
+Route::resource('pemain', PemainController::class)->except(['edit', 'create']);
+Route::resource('fans', FansController::class)->except(['edit', 'create']);
