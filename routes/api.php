@@ -22,13 +22,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::get('liga', [LigaController::class, 'index']);
-// Route::post('liga', [LigaController::class, 'store']);
-// Route::get('liga/{id}', [LigaController::class, 'show']);
-// Route::put('liga/{id}', [LigaController::class, 'update']);
-// Route::delete('liga/{id}', [LigaController::class, 'destroy']);
+// Route Manual
+// Route::get('liga', [Ligacontroller::class, 'index']);
+// Route::post('liga', [Ligacontroller::class, 'store']);
+// Route::get('liga/{id}', [Ligacontroller::class, 'show']);
+// Route::put('liga/{id}', [Ligacontroller::class, 'update']);
+// Route::delete('liga/{id}', [Ligacontroller::class, 'destroy']);
 
-Route::resource('liga', LigaController::class)->except(['edit', 'create']);
-Route::resource('klub', KlubController::class)->except(['edit', 'create']);
-Route::resource('pemain', PemainController::class)->except(['edit', 'create']);
-Route::resource('fans', FansController::class)->except(['edit', 'create']);
+//Route Matic
+Route::middleware('auth:sanctum')->group(function () {
+    Route::resource('liga', LigaController::class)->except(['edit', 'create']);
+    Route::resource('klub', KlubController::class)->except(['edit', 'create']);
+    Route::resource('pemain', PemainController::class)->except(['edit', 'create']);
+    Route::resource('fans', FansController::class)->except(['edit', 'create']);
+    Route::post('logout', [App\Http\Controllers\Api\AuthController::class, 'logout']);
+});
+
+//Route Auth
+Route::post('register', [App\Http\Controllers\Api\AuthController::class, 'register']);
+Route::post('login', [App\Http\Controllers\Api\AuthController::class, 'login']);
